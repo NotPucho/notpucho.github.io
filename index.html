@@ -126,8 +126,14 @@ footer{position:relative;overflow:hidden}footer .wrap{position:relative}
 .tun{position:absolute;right:-4%;top:50%;width:min(460px,70vw);aspect-ratio:1;transform:translateY(-50%);opacity:.5;border-radius:50%;-webkit-mask-image:radial-gradient(closest-side,#000 40%,transparent);mask-image:radial-gradient(closest-side,#000 40%,transparent)}
 @media(max-width:900px){#mus span:last-child{display:none}.prf{grid-template-columns:1fr}.hand{justify-self:start;max-width:320px}}
 @media(prefers-reduced-motion:reduce){h1,.hero>div>*,.stage,.bgl{animation:none!important}}
+.mw{position:relative;display:inline-flex}
+.mtip{position:absolute;top:calc(100% + 12px);right:0;white-space:nowrap;padding:6px 13px;border-radius:99px;font-size:12.5px;background:var(--panel);border:1px solid var(--ac);color:var(--txt);opacity:0;pointer-events:none;transition:opacity .5s}
+.mtip::before{content:"";position:absolute;top:-5px;right:22px;width:8px;height:8px;background:var(--panel);border-left:1px solid var(--ac);border-top:1px solid var(--ac);transform:rotate(45deg)}
+.mw.hint .mtip,#mus[aria-pressed=true]:hover~.mtip,#mus[aria-pressed=true]:focus-visible~.mtip{opacity:1}
+.mw.hint #mus{animation:ring 1.6s ease-out 4}@keyframes ring{from{box-shadow:0 0 0 0 color-mix(in srgb,var(--ac) 55%,transparent)}to{box-shadow:0 0 0 12px transparent}}
+@media(prefers-reduced-motion:reduce){.mw.hint #mus{animation:none}}
 </style></head><body><img class="gf bgl" src="lines.gif" alt="" aria-hidden="true"><div class="sp" id="sp"></div><div class="ptc" id="ptc" aria-hidden="true"></div>
-<nav><div class="wrap"><b>Pucho</b><a class="hide" href="#experiencia">Experiencia</a><a class="hide" href="#habilidades">Habilidades</a><a class="hide" href="#docs">Documentación</a><a href="#contacto">Contacto</a><span class="acs" role="group" aria-label="Color de acento"><button data-a="vio" style="background:var(--vio)" aria-label="Acento violeta"></button><button data-a="gold" style="background:var(--gold)" aria-label="Acento dorado"></button><button data-a="red" style="background:var(--red)" aria-label="Acento rojo"></button><button data-a="aqua" style="background:var(--aqua)" aria-label="Acento aqua"></button><button data-a="green" style="background:var(--green)" aria-label="Acento verde"></button></span><button class="tbtn" id="lg" aria-label="Cambiar idioma">EN</button><button class="tbtn" id="mus" aria-pressed="false" aria-label="Música de fondo" title="After Dark × Sweater Weather"><span class="eq" aria-hidden="true"><i></i><i></i><i></i></span><span>After Dark × Sweater Weather</span></button><button class="tbtn" id="theme" aria-label="Cambiar tema claro u oscuro">Tema</button></div></nav>
+<nav><div class="wrap"><b>Pucho</b><a class="hide" href="#experiencia">Experiencia</a><a class="hide" href="#habilidades">Habilidades</a><a class="hide" href="#docs">Documentación</a><a href="#contacto">Contacto</a><span class="acs" role="group" aria-label="Color de acento"><button data-a="vio" style="background:var(--vio)" aria-label="Acento violeta"></button><button data-a="gold" style="background:var(--gold)" aria-label="Acento dorado"></button><button data-a="red" style="background:var(--red)" aria-label="Acento rojo"></button><button data-a="aqua" style="background:var(--aqua)" aria-label="Acento aqua"></button><button data-a="green" style="background:var(--green)" aria-label="Acento verde"></button></span><button class="tbtn" id="lg" aria-label="Cambiar idioma">EN</button><span class="mw"><button class="tbtn" id="mus" aria-pressed="false" aria-label="Música de fondo" title="After Dark × Sweater Weather"><span class="eq" aria-hidden="true"><i></i><i></i><i></i></span><span>After Dark × Sweater Weather</span></button><span class="mtip" role="status">Click for stop music</span></span><button class="tbtn" id="theme" aria-label="Cambiar tema claro u oscuro">Tema</button></div></nav>
 <main class="wrap">
 <header class="hero"><div>
 <h1>Pucho</h1><p class="sub">Mathias B. · Perú (GMT-5)</p>
@@ -266,8 +272,15 @@ function music(on){if(on){if(!au){au=new(window.AudioContext||window.webkitAudio
 au.resume();mg.gain.cancelScheduledValues(au.currentTime);mg.gain.linearRampToValueAtTime(.16,au.currentTime+1.5);
 const st=()=>{const t=au.currentTime+.05;if(mn%8==0)CHD[(mn/8)%4].forEach(f=>tone(f,t,4.2,"sine",.35));if(Math.random()<.8)tone(PN[Math.random()*PN.length|0],t,1.6,"triangle",.22);mn++};st();mi=setInterval(st,500)}
 else{clearInterval(mi);mg.gain.cancelScheduledValues(au.currentTime);mg.gain.linearRampToValueAtTime(0,au.currentTime+.6);setTimeout(()=>au.suspend(),700)}}
-const TRACK={src:"after-dark-x-sweater-weather.mp3"},trk=new Audio();trk.loop=true;trk.volume=.55;trk.preload="none";trk.src=TRACK.src;let useGen=false;
-$("mus").onclick=async()=>{const b=$("mus"),on=b.getAttribute("aria-pressed")!="true";b.setAttribute("aria-pressed",on);if(useGen)return music(on);if(on){try{await trk.play()}catch(e){useGen=true;music(true)}}else trk.pause()};
+const trk=new Audio("after-dark-x-sweater-weather.mp3"),VOL=.35,mb=$("mus"),mw=mb.parentNode;trk.preload="auto";const ST=29.6;trk.onended=()=>{trk.currentTime=ST;trk.play()};let useGen=false,fd,ht;
+function fade(to,ms,done){clearInterval(fd);const a=trk.volume,t0=performance.now();fd=setInterval(()=>{const k=Math.min((performance.now()-t0)/ms,1);trk.volume=a+(to-a)*k;if(k>=1){clearInterval(fd);done&&done()}},50)}
+function hint(){mw.classList.add("hint");clearTimeout(ht);ht=setTimeout(()=>mw.classList.remove("hint"),7000)}
+async function mplay(){try{trk.volume=0;if(trk.readyState<1)await new Promise(r=>{trk.addEventListener("loadedmetadata",r,{once:true});trk.addEventListener("error",r,{once:true})});if(trk.currentTime<ST)trk.currentTime=ST;await trk.play();fade(VOL,1500)}catch(e){if(e.name=="NotAllowedError")return false;useGen=true;music(true)}mb.setAttribute("aria-pressed","true");hint();return true}
+function mstop(){mb.setAttribute("aria-pressed","false");mw.classList.remove("hint");if(useGen)music(false);else fade(0,500,()=>trk.pause())}
+mb.onclick=()=>{gOff();mb.getAttribute("aria-pressed")=="true"?mstop():mplay()};
+const GE=["pointerdown","keydown","touchend"],gF=e=>{if(e.target.closest&&e.target.closest("#mus"))return;gOff();mplay()};
+function gOff(){GE.forEach(t=>removeEventListener(t,gF,true))}
+mplay().then(ok=>{if(!ok)GE.forEach(t=>addEventListener(t,gF,true))});
 chips();draw();
 setLang(lang);
 </script></body></html>
