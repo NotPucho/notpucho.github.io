@@ -82,15 +82,75 @@ footer h2{margin:0}footer p{margin:4px 0 0;color:var(--mut)}
 .lr b{font:800 24px var(--head);text-align:right}
 @media(max-width:620px){.lr{grid-template-columns:120px 1fr 32px;gap:10px}.ll small{display:none}}
 @media(prefers-reduced-motion:reduce){.lt i{transition:none}.fc{transition:none}}
-</style></head><body>
+
+@property --k{syntax:"<color>";inherits:true;initial-value:#f5b83d}
+body::before{content:"";position:fixed;inset:-20%;z-index:-1;pointer-events:none;background:radial-gradient(40% 35% at 20% 25%,color-mix(in srgb,var(--gold) 20%,transparent),transparent 70%),radial-gradient(35% 35% at 80% 20%,color-mix(in srgb,var(--aqua) 18%,transparent),transparent 70%),radial-gradient(40% 40% at 70% 80%,color-mix(in srgb,var(--red) 16%,transparent),transparent 70%),radial-gradient(35% 35% at 20% 80%,color-mix(in srgb,var(--green) 14%,transparent),transparent 70%);animation:drift 28s ease-in-out infinite alternate}
+@keyframes drift{to{transform:translate(4%,3%) rotate(8deg) scale(1.08)}}
+h1{background:linear-gradient(100deg,var(--gold),var(--red),var(--aqua),var(--green),var(--gold));background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:flow 10s linear infinite}
+@keyframes flow{to{background-position:-300% 0}}
+.stage{position:relative;overflow:hidden;display:grid;justify-items:center;align-content:center;gap:14px;min-height:350px;padding:26px;text-align:center;border-radius:24px;background:var(--panel);border:1px solid color-mix(in srgb,var(--k) 40%,var(--line));transition:--k .7s}
+.stage::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 55% at 50% 42%,color-mix(in srgb,var(--k) 28%,transparent),transparent 72%)}
+.stage>*{position:relative;transition:opacity .3s,transform .35s}
+.nt{font:800 22px var(--head)}.nt .rank{color:var(--k)}
+.logo{animation:float 5s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-9px)}}
+.logo img{display:block;width:170px;height:170px;object-fit:cover;border-radius:34px;background:var(--panel);box-shadow:0 0 0 4px color-mix(in srgb,var(--k) 55%,transparent),0 22px 50px -14px var(--k);transition:opacity .3s,transform .45s cubic-bezier(.3,1.4,.5,1)}
+.cap b{display:block;font:800 24px var(--head)}.cap em{font-style:normal;font-weight:700;color:var(--k)}
+.pg{width:56%;height:4px;border-radius:4px;background:var(--line);overflow:hidden}.pg i{display:block;height:100%;width:0;background:var(--k);animation:fill 2.8s linear forwards}
+@keyframes fill{to{width:100%}}.stage:hover .pg i{animation-play-state:paused}
+.stage.swap .logo img{opacity:0;transform:scale(.7) rotate(-8deg)}.stage.swap .nt,.stage.swap .cap{opacity:0;transform:translateY(8px)}
+.mq{overflow:hidden;margin:0 0 26px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.mt{display:flex;width:max-content;animation:mq 70s linear infinite}.mt:hover{animation-play-state:paused}
+.mt img{width:60px;height:60px;margin-right:14px;border-radius:14px;object-fit:cover;border:1px solid var(--line)}
+@keyframes mq{to{transform:translateX(-50%)}}
+.js .rv{opacity:0;transform:translateY(22px);transition:opacity .7s,transform .7s}.js .rv.in{opacity:1;transform:none}
+.c{animation:pop .4s both}@keyframes pop{from{opacity:0;transform:translateY(10px) scale(.97)}}
+@media(prefers-reduced-motion:reduce){body::before,h1,.logo,.mt,.c{animation:none}.pg i{animation:none;width:100%}}
+
+.sp{position:fixed;top:0;left:0;width:100%;height:3px;z-index:10;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--gold),var(--red),var(--aqua),var(--green))}
+.ptc{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.px{position:absolute;bottom:-20px;left:var(--x);width:var(--s);height:var(--s);background:var(--c);opacity:0;animation:rise var(--d) linear var(--dl) infinite}
+@keyframes rise{10%,90%{opacity:.4}to{transform:translateY(-110vh) rotate(200deg);opacity:0}}
+.rot{margin:12px 0 0;font-size:20px;color:var(--mut)}.rot b{color:var(--txt)}
+.cur{display:inline-block;width:2px;height:1.1em;margin-left:3px;vertical-align:-.15em;background:var(--aqua);animation:bl 1s steps(1) infinite}
+@keyframes bl{50%{opacity:0}}
+h2::after{content:"";display:block;height:4px;width:0;margin-top:8px;border-radius:4px;background:linear-gradient(90deg,var(--gold),var(--red),var(--aqua),var(--green));transition:width .9s .2s cubic-bezier(.2,.8,.2,1)}
+section:not(.rv) h2::after,.rv.in h2::after,footer h2::after{width:72px}
+.btn{position:relative;overflow:hidden;transition:transform .2s}.btn:hover{transform:translateY(-2px)}
+.btn::before{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.35) 50%,transparent 65%);transform:translateX(-120%)}
+.btn:hover::before{transform:translateX(120%);transition:transform .7s}
+.btn.main{animation:pulse 2.8s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--txt) 35%,transparent)}70%,100%{box-shadow:0 0 0 14px transparent}}
+.stage{transition:--k .7s,transform .25s ease-out}
+.logo{position:relative}.logo::before{content:"";position:absolute;inset:-16px;border-radius:46px;border:2px dashed color-mix(in srgb,var(--k) 55%,transparent);animation:spin 18s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.mt.rev{animation-direction:reverse;animation-duration:90s;margin-top:14px}
+.lt i{position:relative;overflow:hidden}
+.lt i::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.35) 50%,transparent 70%);transform:translateX(-100%);animation:shim 3s 1.5s infinite}
+@keyframes shim{to{transform:translateX(100%)}}
+:is(.c,.fc,.docs div,.stats div,main li){position:relative;transition:transform .2s,border-color .2s}
+:is(.c,.fc,.docs div,.stats div,main li)::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .25s;background:radial-gradient(180px circle at var(--mx,50%) var(--my,50%),color-mix(in srgb,var(--k,var(--aqua)) 24%,transparent),transparent 70%)}
+:is(.c,.fc,.docs div,.stats div,main li):hover::after{opacity:1}
+.c:hover,.docs div:hover,.stats div:hover,main li:hover{transform:translateY(-3px)}.c:hover{border-color:var(--k)}
+.c{animation:pop .4s backwards}
+.bp{position:fixed;width:8px;height:8px;z-index:20;pointer-events:none;animation:bp .85s ease-out forwards}
+@keyframes bp{to{transform:translate(var(--tx),var(--ty)) rotate(220deg);opacity:0}}
+@media(prefers-reduced-motion:reduce){.px,.cur,.logo::before,.btn.main,.lt i::after,.ptc{animation:none;display:none}.cur{display:inline-block}h2::after{transition:none}}
+</style></head><body><div class="sp" id="sp"></div><div class="ptc" id="ptc" aria-hidden="true"></div>
 <nav><div class="wrap"><b>Pucho</b><a class="hide" href="#experiencia">Experiencia</a><a class="hide" href="#habilidades">Habilidades</a><a class="hide" href="#docs">Documentación</a><a href="#contacto">Contacto</a><button class="tbtn" id="theme" aria-label="Cambiar tema claro u oscuro">Tema</button></div></nav>
 <main class="wrap">
 <header class="hero"><div>
 <h1>Pucho</h1><p class="sub">Mathias B. · Perú (GMT-5)</p>
 <p class="tag">Management, administración y supervisión de equipos staff en múltiples comunidades y servidores de Minecraft.</p>
+<p class="rot">Me especializo en <b id="rw"></b><span class="cur"></span></p>
 <div class="cta"><a class="btn main" href="#contacto">Contactar por Discord</a><a class="btn" href="#experiencia">Ver experiencia</a></div></div>
-<div class="chat" role="img" aria-label="Ejemplo de chat con los rangos de Pucho: Owner, Admin, SS Manager y Mod"><p><span class="rk r-d">[Owner]</span>Pucho: bienvenido al equipo, lee la Staff Guide antes de tu primer turno.</p><p><span class="rk r-a">[Admin]</span>Pucho: ticket resuelto y caso documentado.</p><p><span class="rk r-c">[SS Manager]</span>Pucho: screenshare terminado, evidencia guardada.</p><p><span class="rk r-m">[Mod]</span>Pucho: reporte atendido, sanción aplicada según la guía.</p></div>
+<div class="stage k-d" id="stage" role="img" aria-label="Logos de los servidores donde he trabajado, cambiando uno a uno">
+<div class="nt"><span class="rank">[<span id="stRank">Owner</span>]</span> Pucho</div>
+<div class="logo"><img id="stImg" src="" alt="" width="170" height="170"></div>
+<div class="cap"><b id="stName"></b><em id="stRole"></em></div>
+<div class="pg"><i id="pg"></i></div></div>
 </header>
+<div class="mq" aria-hidden="true"><div class="mt" id="mt"></div><div class="mt rev" id="mt2"></div></div>
 <div class="stats" id="stats"></div>
 
 <section id="perfil"><h2>Perfil</h2>
@@ -137,7 +197,7 @@ const cnt=k=>k=="t"?D.length:D.filter(x=>x[2]==k).length;
 $("stats").innerHTML=[[D.length,"comunidades"],[9,"guías y sistemas creados"],[cnt("d"),"puestos de dirección"],["Discord + TS","coordinación de soporte"]].map(x=>`<div><b>${x[0]}</b><span>${x[1]}</span></div>`).join("");
 function chips(){$("chips").innerHTML=Object.keys(L).map(k=>`<button class="chip" data-k="${k}" aria-pressed="${f==k}">${L[k]}<i>${cnt(k)}</i></button>`).join("")}
 function draw(){const r=D.filter(x=>(f=="t"||x[2]==f)&&(x[0]+" "+x[1]).toLowerCase().includes(s));
-$("exp").innerHTML=r.length?r.map(x=>`<div class="c k-${x[2]}">${av(x)}<div><b>${x[0]}</b><span>${x[1]}</span></div></div>`).join(""):'<p class="empty">No hay resultados. Prueba con otro nombre o cambia el filtro.</p>'}
+$("exp").innerHTML=r.length?r.map((x,i)=>`<div class="c k-${x[2]}" style="animation-delay:${Math.min(i,16)*22}ms">${av(x)}<div><b>${x[0]}</b><span>${x[1]}</span></div></div>`).join(""):'<p class="empty">No hay resultados. Prueba con otro nombre o cambia el filtro.</p>'}
 $("chips").onclick=e=>{const b=e.target.closest(".chip");if(b){f=b.dataset.k;chips();draw()}};
 $("q").oninput=e=>{s=e.target.value.trim().toLowerCase();draw()};
 $("theme").onclick=()=>{const h=document.documentElement;h.dataset.theme=h.dataset.theme=="dark"?"light":"dark"};
@@ -151,5 +211,33 @@ $("lad").innerHTML=LV.map(l=>`<button class="lr k-${l[0]}" data-k="${l[0]}" styl
 $("lad").onclick=e=>{const b=e.target.closest(".lr");if(b){f=b.dataset.k;chips();draw();$("experiencia").scrollIntoView()}};
 const rows=[...document.querySelectorAll(".lr")];
 if("IntersectionObserver"in window){new IntersectionObserver((es,o)=>{if(es[0].isIntersecting){rows.forEach((r,i)=>setTimeout(()=>r.classList.add("on"),i*130));o.disconnect()}},{threshold:.35}).observe($("lad"))}else rows.forEach(r=>r.classList.add("on"));
+document.documentElement.classList.add("js");
+const RM=matchMedia("(prefers-reduced-motion:reduce)").matches,IO="IntersectionObserver"in window;
+const gp={m:[],c:[],a:[],d:[]};D.filter(x=>LOGOS[x[0]]).forEach(x=>gp[x[2]].push(x));
+const seq=[];for(let i=0;seq.length<D.filter(x=>LOGOS[x[0]]).length;i++)["m","c","a","d"].forEach(k=>gp[k][i]&&seq.push(gp[k][i]));
+$("mt").innerHTML=[...seq,...seq].map(x=>`<img src="${LOGOS[x[0]]}" alt="" width="60" height="60">`).join("");
+const stg=$("stage");let si=0,paused=false;
+function fill(x){stg.classList.remove("k-d","k-a","k-c","k-m");stg.classList.add("k-"+x[2]);const im=$("stImg");im.src=LOGOS[x[0]];im.alt="Logo de "+x[0];$("stRank").textContent=x[1].replace(/\(.*?\)/g,"").split(" · ")[0].trim();$("stName").textContent=x[0];$("stRole").textContent=x[1];const p=$("pg");p.style.animation="none";void p.offsetWidth;p.style.animation=""}
+fill(seq[0]);
+if(!RM){setInterval(()=>{if(paused)return;stg.classList.add("swap");setTimeout(()=>{si=(si+1)%seq.length;fill(seq[si]);stg.classList.remove("swap")},320)},2800);stg.onmouseenter=()=>paused=true;stg.onmouseleave=()=>paused=false}
+const sb=[...document.querySelectorAll("#stats b")].filter(b=>/^\d+$/.test(b.textContent));
+function cu(b){const n=+b.dataset.n,t0=performance.now();(function t(now){const k=Math.min((now-t0)/1200,1);b.textContent=Math.round(n*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(t)})(t0)}
+if(IO&&!RM){
+sb.forEach(b=>{b.dataset.n=b.textContent;b.textContent="0"});
+new IntersectionObserver((es,o)=>{if(es[0].isIntersecting){sb.forEach(cu);o.disconnect()}},{threshold:.6}).observe($("stats"));
+const rv=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");rv.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll("main>section,.stats").forEach(s=>{s.classList.add("rv");rv.observe(s)})}
+const HV=matchMedia("(hover:hover)").matches&&!RM;
+if(!RM){
+const pc=["var(--gold)","var(--red)","var(--aqua)","var(--green)"];
+$("ptc").innerHTML=Array.from({length:24},(_,i)=>`<i class="px" style="--x:${Math.random()*100}%;--s:${5+Math.random()*9|0}px;--c:${pc[i%4]};--d:${14+Math.random()*16|0}s;--dl:-${Math.random()*24|0}s"></i>`).join("");
+let tk=0;addEventListener("scroll",()=>{if(tk)return;tk=1;requestAnimationFrame(()=>{const m=document.documentElement.scrollHeight-innerHeight;$("sp").style.transform=`scaleX(${m>0?scrollY/m:0})`;tk=0})},{passive:true});
+$("copy").addEventListener("click",e=>{const r=e.currentTarget.getBoundingClientRect(),cs=["#f5b83d","#ff6b62","#4dd6e8","#7be07b"];for(let i=0;i<18;i++){const d=document.createElement("i");d.className="bp";const a=Math.random()*6.28,v=50+Math.random()*80;d.style.cssText=`left:${r.left+r.width/2}px;top:${r.top+r.height/2}px;background:${cs[i%4]};--tx:${Math.cos(a)*v}px;--ty:${Math.sin(a)*v-30}px`;document.body.appendChild(d);setTimeout(()=>d.remove(),900)}})}
+$("mt2").innerHTML=[...seq].reverse().concat([...seq].reverse()).map(x=>`<img src="${LOGOS[x[0]]}" alt="" width="60" height="60">`).join("");
+const W=["management","administración","screenshare","documentación","capacitación de equipos"],rw=$("rw");
+if(RM)rw.textContent=W[0];else{let wi=0,ci=0,del=false;(function tp(){const w=W[wi];rw.textContent=w.slice(0,ci);if(!del&&ci==w.length){del=true;return setTimeout(tp,1600)}if(del&&ci==0){del=false;wi=(wi+1)%W.length}ci+=del?-1:1;setTimeout(tp,del?35:70)})()}
+if(HV){
+document.addEventListener("pointermove",e=>{const t=e.target.closest&&e.target.closest(".c,.fc,.docs div,.stats div,main li");if(t){const r=t.getBoundingClientRect();t.style.setProperty("--mx",e.clientX-r.left+"px");t.style.setProperty("--my",e.clientY-r.top+"px")}});
+document.querySelectorAll(".stage,.fc").forEach(el=>{const fc=el.classList.contains("fc");el.addEventListener("pointermove",e=>{const r=el.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;el.style.transform=`perspective(800px) rotateY(${x*10}deg) rotateX(${-y*10}deg)${fc?" translateY(-3px)":""}`});el.addEventListener("pointerleave",()=>el.style.transform="")})}
 chips();draw();
 </script></body></html>
